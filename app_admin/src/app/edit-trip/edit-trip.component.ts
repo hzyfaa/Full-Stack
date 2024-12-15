@@ -34,8 +34,6 @@ export class EditTripComponent implements OnInit {
       this.router.navigate(['']);
       return;
     }
-    //console.log('EditTripComponent::ngOnInit');
-    //console.log('tripcode:' + tripCode);
 
     this.editForm = this.formBuilder.group({
       _id: [],
@@ -49,39 +47,17 @@ export class EditTripComponent implements OnInit {
       description: ['', Validators.required]
     })
 
-    this.tripService.getTrip(tripCode)
-      .subscribe({
-        next: (value: any) => {
-          this.trip = value;
-          // Populate our record into the form
-          this.editForm.patchValue(value[0]);
-          if (!value) {
-            this.message = 'No Trip Retrieved!';
-          }
-          else {
-            this.message = 'Trip: ' + tripCode + ' retrieved';
-          }
-          console.log(this.message);
-        },
-        error: (error: any) => {
-          console.log('Error: ' + error);
-        }
-      })
+    this.tripService.getTrip(tripCode).then((data) => {
+      this.editForm.patchValue(data[0]);
+    });
   }
 
   public onSubmit() {
     this.submitted = true;
     if (this.editForm.valid) {
-      this.tripService.updateTrip(this.editForm.value)
-        .subscribe({
-          next: (value: any) => {
-            console.log(value);
-            this.router.navigate(['']);
-          },
-          error: (error: any) => {
-            console.log('Error: ' + error);
-          }
-        })
+      this.tripService.updateTrip(this.editForm.value).then((data) => {
+        this.router.navigate(['']);
+      });
     }
   }
 
