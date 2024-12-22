@@ -6,13 +6,11 @@ import { AuthenticationService } from '../services/authentication.service';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-
   constructor(private authenticationService: AuthenticationService) {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     var isAuthAPI: boolean;
-
     if (request.url.startsWith('login') || request.url.startsWith('register')) {
       isAuthAPI = true;
     } else {
@@ -23,7 +21,7 @@ export class JwtInterceptor implements HttpInterceptor {
       let token = this.authenticationService.getToken();
       const authReq = request.clone({
         setHeaders: { Authorization: `Bearer ${token}` }
-      })
+      });
       return next.handle(authReq);
     }
     return next.handle(request);

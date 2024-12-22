@@ -61,14 +61,14 @@ const tripsUpdateTrip = async (req, res) => {
             perPerson: req.body.perPerson,
             image: req.body.image,
             description: req.body.description
-        }, { new: true }).then(trip => {
+        }, { new: true }).then((trip) => {
             if (!trip) {
                 return res.status(404).send({
                     message: "Trip not found with code" + req.params.tripCode
                 });
-            }
+            };
             res.send(trip);
-        }).catch(err => {
+        }).catch((err) => {
             if (err.kind === 'ObjectId') {
                 return res.status(404).send({
                     message: "Trip not found with code" + req.params.tripCode
@@ -76,6 +76,7 @@ const tripsUpdateTrip = async (req, res) => {
             }
             return res.status(500) // server error.json(err);
         });
+
     });
 };
 
@@ -84,10 +85,10 @@ const getUser = async (req, res, callback) => {
     const q = await User.findOne({ email: req.auth.email }).exec();
     if (!q) {
         return res.status(404).json({ "message": "User not found" });
-    }
-    else {
+    } else {
         callback(req, res, q.name);
     };
+
 };
 
 module.exports = { tripsList, tripsFindByCode, tripsAddTrip, tripsUpdateTrip };

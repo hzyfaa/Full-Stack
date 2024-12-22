@@ -29,7 +29,6 @@ export class TripListingComponent implements OnInit {
     this.getStuff();
   }
 
-
   private getStuff(): void {
     this.tripDataService
       .getTrips()

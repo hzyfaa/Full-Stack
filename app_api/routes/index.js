@@ -9,7 +9,7 @@ const auth = jwt({ secret: process.env.JWT_SECRET, userProperty: 'payload', algo
 router
     .route("/trips")
     .get(tripsController.tripsList)
-    .post(auth, tripsController.tripsAddTrip)
+    .post(auth, tripsController.tripsAddTrip);
 
 // define route for tripsFindByCode
 // * params: tripCode

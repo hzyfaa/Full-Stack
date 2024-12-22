@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, lastValueFrom } from 'rxjs';
+import { lastValueFrom } from 'rxjs';
 import { Trip } from '../models/trip';
 import { User } from '../models/user';
 import { AuthResponse } from '../models/authresponse';
@@ -18,8 +18,7 @@ export class TripDataService {
 
   public async getTrips(): Promise<Trip[]> {
     return await lastValueFrom(
-      this.http
-        .get<Trip[]>(`${this.url}/trips`)
+      this.http.get<Trip[]>(`${this.url}/trips`)
     ).catch(this.handleError);
   }
 
@@ -39,8 +38,7 @@ export class TripDataService {
 
   public async updateTrip(formData: Trip): Promise<Trip[]> {
     return await lastValueFrom(
-      this.http
-        .put<Trip[]>(`${this.url}/trips/${formData.code}`, formData)
+      this.http.put<Trip[]>(`${this.url}/trips/${formData.code}`, formData)
     ).catch(this.handleError);
   }
 
@@ -52,8 +50,7 @@ export class TripDataService {
     return this.makeAuthApiCall('register', user);
   }
 
-  private async makeAuthApiCall(urlPath: string, user: User):
-    Promise<AuthResponse> {
+  private async makeAuthApiCall(urlPath: string, user: User): Promise<AuthResponse> {
     return await lastValueFrom(
       this.http.post<AuthResponse>(`${this.url}/${urlPath}`, user)
     ).catch(this.handleError);
