@@ -15,8 +15,7 @@ const register = async (req, res) => {
     const q = await user.save();
     if (!q) {
         res.status(400).json(err);
-    }
-    else {
+    } else {
         const token = user.generateJwt();
         res.status(200).json({ token });
     }
@@ -31,7 +30,7 @@ const login = (req, res) => {
     passport.authenticate('local', (err, user, info) => {
         if (err) {
             return res.status(404).json(err);
-        }
+        };
         if (user) {
             const token = user.generateJwt();
             res.status(200).json({ token });

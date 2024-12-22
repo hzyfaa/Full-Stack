@@ -16,6 +16,7 @@ export class AuthenticationService {
   public getToken(): string {
     return this.storage.getItem('travlr-token') || '';
   };
+
   public saveToken(token: string): void {
     this.storage.setItem('travlr-token', token);
   };
