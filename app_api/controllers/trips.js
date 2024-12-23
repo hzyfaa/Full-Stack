@@ -80,6 +80,21 @@ const tripsUpdateTrip = async (req, res) => {
     });
 };
 
+// DELETE: /trips/:tripCode - delete a trip by its code
+const tripsDeleteTrip = async (req, res) => {
+    getUser(req, res, async (req, res) => {
+        console.log('trips.js :: tripsDeleteTrip');
+        const q = await Trip.findOneAndDelete({ 'code': req.params.tripCode }).exec();
+        if (!q) {
+            // bad request;
+            return res.status(400).json(err);
+        } else {
+            // removed
+            return res.status(201).json(q);
+        };
+    });
+};
+
 // authenticate caller
 const getUser = async (req, res, callback) => {
     const q = await User.findOne({ email: req.auth.email }).exec();
@@ -91,4 +106,4 @@ const getUser = async (req, res, callback) => {
 
 };
 
-module.exports = { tripsList, tripsFindByCode, tripsAddTrip, tripsUpdateTrip };
+module.exports = { tripsList, tripsFindByCode, tripsAddTrip, tripsUpdateTrip, tripsDeleteTrip };
