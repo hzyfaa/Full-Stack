@@ -10,6 +10,7 @@
         </p>
         <div *ngIf="isLoggedIn()">
             <button class="btn btn-info" (click)="editTrip(trip)">Edit Trip</button>
+            <button class="btn btn-info btn-danger" (click)="deleteTrip(trip)">Delete Trip</button>
         </div>
     </div>
 </div>

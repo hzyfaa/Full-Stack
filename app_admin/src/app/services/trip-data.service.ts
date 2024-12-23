@@ -42,6 +42,14 @@ export class TripDataService {
     ).catch(this.handleError);
   }
 
+  public async deleteTrip(tripCode: string): Promise<Trip[]> {
+    console.log("trip data service :: deleteTrip");
+    console.log(`${this.url}/trips/${tripCode}`);
+    return await lastValueFrom(
+      this.http.delete<Trip[]>(`${this.url}/trips/${tripCode}`)
+    ).catch(this.handleError);
+  }
+
   public login(user: User): Promise<AuthResponse> {
     return this.makeAuthApiCall('login', user);
   }
